@@ -1,0 +1,27 @@
+body {
+  background: #0f0f0f;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+}
+
+button {
+  background: green;
+  color: white;
+  padding: 12px;
+  margin: 10px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+input {
+  padding: 10px;
+  margin: 8px;
+  width: 80%;
+}

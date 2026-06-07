@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dige Recrutement 🤍</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="splash">
+  <h1>Bienvenue chez Dige 🤍</h1>
+  <button onclick="start()">C'est parti 🚀</button>
+</div>
+
+<div id="menu" class="hidden">
+  <h2><b>CANDIDATURES</b></h2>
+
+  <button onclick="openForm('mod')"><b>Modérateur 👨‍✈️</b></button>
+  <button onclick="openForm('qotd')"><b>QOTD 💥</b></button>
+  <button onclick="openForm('defi')"><b>Défi 💣</b></button>
+  <button onclick="openForm('other')"><b>Autres 💤</b></button>
+</div>
+
+<div id="form" class="hidden"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
