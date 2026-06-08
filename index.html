@@ -1,28 +1,205 @@
-<!DOCTYPE html>
+from pathlib import Path
+
+html = r"""<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Dige Recrutement 🤍</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dige Recrutement 🤍</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#0d1b3d;color:white}
+.screen{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px}
+.hidden{display:none}
+.fade{animation:fade 1s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.card{background:#162750;padding:20px;border-radius:15px;max-width:900px;width:95%}
+button{background:#28a745;color:#fff;border:none;border-radius:10px;padding:12px 20px;font-weight:bold;cursor:pointer;margin:8px}
+input,textarea{width:90%;padding:10px;border-radius:8px;border:none;margin:6px}
+.question{margin:10px 0;text-align:left}
+</style>
 </head>
 <body>
 
-<div id="splash">
-  <h1>Bienvenue chez Dige 🤍</h1>
-  <button onclick="start()">C'est parti 🚀</button>
+<div id="welcome" class="screen fade">
+<h1>Bienvenue chez Dige 🤍</h1>
+<button onclick="showMenu()">C'est parti ! 🚀</button>
 </div>
 
-<div id="menu" class="hidden">
-  <h2><b>CANDIDATURES</b></h2>
-
-  <button onclick="openForm('mod')"><b>Modérateur 👨‍✈️</b></button>
-  <button onclick="openForm('qotd')"><b>QOTD 💥</b></button>
-  <button onclick="openForm('defi')"><b>Défi 💣</b></button>
-  <button onclick="openForm('other')"><b>Autres 💤</b></button>
+<div id="menu" class="screen hidden">
+<div class="card">
+<h2>CANDIDATURES</h2>
+<button onclick="openForm('Modérateur 👨‍✈️')">Modérateur 👨‍✈️</button>
+<button onclick="openForm('QOTD 💥')">QOTD 💥</button>
+<button onclick="openForm('Défi 💣')">Défi 💣</button>
+<button onclick="openForm('Autres 💤')">Autres 💤</button>
+</div>
 </div>
 
-<div id="form" class="hidden"></div>
+<div id="formScreen" class="screen hidden"></div>
 
-<script src="app.js"></script>
+<script>
+const questions={
+"Modérateur 👨‍✈️":[
+"Quel âge as-tu ?","Depuis combien de temps utilises-tu Discord ?","Pourquoi souhaites-tu devenir modérateur ?",
+"Que fait un modérateur selon toi ?","Comment réagirais-tu face à un conflit ?","As-tu déjà été staff ?",
+"Quelles sont tes qualités ?","Quels sont tes défauts ?","Comment accueillerais-tu un nouveau membre ?",
+"Pourquoi devrions-nous te choisir ?"
+],
+"QOTD 💥":[
+"Pourquoi souhaites-tu gérer les QOTD ?","Qu'est-ce qu'un bon QOTD ?","Donne 5 exemples de QOTD.",
+"Comment animer une discussion ?","Comment relancer une discussion inactive ?","Créativité sur 10 ?",
+"As-tu déjà animé une communauté ?","Combien de QOTD par semaine ?","Pourquoi toi ?",
+"Que peux-tu apporter au serveur ?"
+],
+"Défi 💣":[
+"Pourquoi veux-tu créer des défis ?","Donne 3 idées de défis.","Comment rendre un défi amusant ?",
+"Comment éviter la triche ?","Combien de défis par semaine ?","Créativité sur 10 ?",
+"As-tu déjà organisé des événements ?","Comment annoncerais-tu un défi ?","Pourquoi toi ?",
+"Que peux-tu apporter ?"
+],
+"Autres 💤":[
+"Quel rôle proposes-tu ?","Pourquoi ce rôle ?","Comment aiderais-tu le serveur ?",
+"Quels sont tes objectifs ?","Depuis combien de temps es-tu présent ?","Tes qualités ?",
+"Tes défauts ?","As-tu déjà eu des responsabilités ?","Pourquoi toi ?",
+"Décris ce que tu veux ! ✍️"
+]
+};
+
+function showMenu(){
+document.getElementById('welcome').classList.add('hidden');
+document.getElementById('menu').classList.remove('hidden');
+}
+
+function openForm(type){
+let html=`<div class="card"><h2>${type}</h2>`;
+questions[type].forEach((q,i)=>{
+html+=`<div class="question"><b>${i+1}. ${q}</b><br><textarea rows="2" placeholder="Réponse..."></textarea></div>`;
+});
+html+=`
+<h3>Disponibilités 📅</h3>
+<label><input type="checkbox"> Lundi</label>
+<label><input type="checkbox"> Mardi</label>
+<label><input type="checkbox"> Mercredi</label>
+<label><input type="checkbox"> Jeudi</label>
+<label><input type="checkbox"> Vendredi</label>
+
+<h3>Adresse mail 📧</h3>
+<input placeholder="tonmail@example.com">
+
+<h3>Nom d'utilisateur Discord 👤</h3>
+<input placeholder="ex : DraftBot">
+
+<p><small>Tes informations ne seront jamais partagées.</small></p>
+
+<button onclick="finish()">Envoyer 🪽</button>
+</div>`;
+
+document.getElementById('menu').classList.add('hidden');
+document.getElementById('formScreen').innerHTML=html;
+document.getElementById('formScreen').classList.remove('hidden');
+}
+
+function finish(){
+document.getElementById('formScreen').innerHTML=`
+<div class="card fade">
+<h1>Merci d'avoir pris le temps de répondre à nos questions ! 🕰️</h1>
+<h2>Nous te répondrons d'ici 1 ou 2 jours 👻</h2>
+<h2>Vérifie bien tes mp discord 💌</h2>
+<h2>À bientôt 🤍</h2>
+</div>`;
+}
+</script>
+function finish(){
+...
+}
+</script>
+
+<!-- ICI TU COLLES LE CODE ADMIN -->
+
+<button id="adminBtn" onclick="adminLogin()">🔒</button>
+
+<style>
+#adminBtn{
+position:fixed;
+bottom:15px;
+right:15px;
+width:50px;
+height:50px;
+border-radius:50%;
+font-size:22px;
+background:#28a745;
+color:white;
+border:none;
+cursor:pointer;
+}
+</style>
+
+<script>
+function adminLogin(){
+
+let mdp = prompt("Mot de passe Secret 🔒");
+
+if(mdp==="Dige92i+"){
+document.body.innerHTML=`
+<div style="
+background:#0d1b3d;
+color:white;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+font-family:Arial;
+">
+<h1>👑 Admin de Dige</h1>
+<h2>Bienvenue à toi 👋</h2>
+<p>Ici tu pourras voir les candidatures.</p>
+<button onclick="location.reload()">Retour</button>
+</div>
+`;
+}
+else{
+alert("Mot de passe incorrect ❌");
+}
+}
+<script>
+
+  // (ton ancien code Firebase / config reste au-dessus)
+
+  async function send(type) {
+    try {
+      await addDoc(collection(db, "candidatures"), {
+        type: type,
+
+        discord: document.getElementById("discord")?.value || "",
+        mail: document.getElementById("mail")?.value || "",
+
+        q1: document.getElementById("q1")?.value || "",
+        q2: document.getElementById("q2")?.value || "",
+        q3: document.getElementById("q3")?.value || "",
+        q4: document.getElementById("q4")?.value || "",
+        q5: document.getElementById("q5")?.value || "",
+        q6: document.getElementById("q6")?.value || "",
+        q7: document.getElementById("q7")?.value || "",
+        q8: document.getElementById("q8")?.value || "",
+        q9: document.getElementById("q9")?.value || "",
+        q10: document.getElementById("q10")?.value || "",
+
+        date: new Date().toISOString()
+      });
+
+      alert("✅ Candidature envoyée !");
+    } catch (error) {
+      alert("❌ Erreur Firebase : " + error.message);
+    }
+  }
+
+</script>
+</script>
 </body>
 </html>
+</body>
+</html>"""
+path = "/mnt/data/index.html"
+Path(path).write_text(html, encoding="utf-8")
+print(path)
